@@ -9,7 +9,7 @@ type Livro = String
 type Emprestado = Bool 
 type BancoDados = [(Pessoa, Livro, Emprestado)]
 
--- Exemplo de Banco de Dados
+-- Exemplo de Banco de Dados (exemploBD)
 exemploBD :: BancoDados
 exemploBD = [("Leandro","Java",True),("Joabe", "CSP", True),("Lucas", "UML", True), ( "Lucas" , "Haskell", True),( "Sidney" , "CSP", True),( " " , "Java", False),( " " , "Concorrencia", False)]
 
@@ -29,13 +29,13 @@ livrosPessoa bd pessoa = [l | (p, l, _) <- bd, p == pessoa]
 emprestimos :: BancoDados -> [(Livro,Pessoa)] 
 emprestimos bd = [(l,p) | (p, l, e) <- bd, e]
 
--- Adiciona um novo empréstimo ao banco de dados, atualizado o campo “emprestado” para True
+-- Adiciona um novo empréstimo ao banco de dados, atualizado o campo “emprestado” para True (verdade)
 emprestar :: BancoDados -> Pessoa -> Livro -> BancoDados 
 emprestar bd pessoa livro
   | livroDisponivel bd livro = (pessoa, livro, True) : bd
   | otherwise = bd
 
--- Remove um empréstimo do banco de dados, atualizado o campo “emprestado” para False
+-- Remove um empréstimo do banco de dados, atualizado o campo “emprestado” para False (falso)
 devolver :: BancoDados -> Pessoa -> Livro -> BancoDados
 devolver bd pessoa livro = [(p, l, False) | (p, l, True) <- bd, p /= pessoa || l /= livro] ++ [(pessoa, livro, False) | livroDisponivel bd livro]
 
